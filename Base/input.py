@@ -1,4 +1,6 @@
-from notebook.notebookapp import raw_input
 
-input = raw_input('Input some string:')
-print("Input:",input)
+while 1:
+    data = input('Input some string:')
+    print("Input:",data)
+    print(len(data))
+    arr1 = data.split(' ')
