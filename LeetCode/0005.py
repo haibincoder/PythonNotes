@@ -12,56 +12,38 @@
 '''
 
 
-def isRepeat(input):
-    """
-    判断字符串是否回文串
-    :param input: aba  abba
-    :return:
-    """
-    return input == input[::-1]
-
 class Solution:
-    @staticmethod
-    def demo(s):
+    def longestPalindrome(self, s: str) -> str:
+        if s is None:
+            return None
         length = len(s)
-        dp = [[0] * length for _ in length]
-        left, right = 0, 0
-        for i in range(1, length):
-            for j in range(length - i):
-                if s[j] == s[j + i] and (j + 1 >= j + i - 1 or dp[j + 1][j + i - 1]):
-                    dp[j][j + i] = 1
-                    left, right = j, j + i
-        return s[left: right + 1]
-
-    @staticmethod
-    def longestPalindrome1(s):
-        if s == s[::-1]:
+        if length < 2:
             return s
-        max_len = 1
-        max_str = s[0]
-        for i in range(len(s) - 1):
-            for j in range(i+1, len(s)):
-                if j-i+1 > max_len and s[i : j+1] == s[i : j+1][::-1]:
-                    max_len = j-i+1
-                    max_str = s[i, j]
-        return max_str
 
-    @staticmethod
-    def longestPalindrome(s):
-        if s == s[::-1]:
-            return s
-        max_len = 1
-        max_str = s[0]
-        for i in range(len(s) - 1):
-            for j in range(i + 1, len(s)):
-                if j - i + 1 > max_len and s[i: j + 1] == s[i: j + 1][::-1]:
-                    max_len = j - i + 1
-                    max_str = s[i, j]
-        return max_str
+        matrix = [[False] * length for _ in range(length)]
+
+        for i in range(length):
+            matrix[i][i] = True
+
+        begin = 0
+        maxlength = 0
+        for j in range(length):
+            for i in range(j):
+                if s[i] != s[j]:
+                    matrix[i][j] = False
+                else:
+                    if j-i < 2:
+                        matrix[i][j] = True
+                    else:
+                        matrix[i][j] = matrix[i+1][j-1]
+                    if j-i > maxlength and matrix[i][j] is True:
+                        begin = i
+                        maxlength = j-i
+        return s[begin: begin + maxlength + 1]
 
 
 if __name__ == "__main__":
-    input = 'babad'
+    solution = Solution()
+    input = 'aaaa'
     # print(f'{isRepeat(input)}')
-    result = Solution.longestPalindrome(input)
-    print(f'{result}')
+    print(solution.longestPalindrome(input))
