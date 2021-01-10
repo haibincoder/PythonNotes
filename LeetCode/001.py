@@ -5,7 +5,17 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        for i in range(0, len(nums)):
-            for j in range(i + 1, len(nums)):
-                if (nums[i] + nums[j] == target):
-                    return [i, j]
+        key_index = {}
+        for index, item in enumerate(nums):
+            temp = target-item
+            if temp in key_index:
+                return [key_index[temp], index]
+            else:
+                key_index[item] = index
+
+
+if __name__ == "__main__":
+    soulution = Solution()
+    input = [2, 7, 11, 15]
+    target = 9
+    print(soulution.twoSum(input, target))
