@@ -11,26 +11,22 @@
 """
 
 
-def partition(s):
-    """
-    :type s: str
-    :rtype: List[List[str]]
-    """
-    if len(s) == 0:
+def parsestr(s):
+    if s is None or len(s) == 0:
         return [[]]
     if len(s) == 1:
         return [[s]]
-    tmp = []
-    for i in range(1, len(s) + 1):
+    result = []
+    for i in range(1, len(s)+1):
         left = s[:i]
         right = s[i:]
-        if left == left[::-1]:  # 如果左侧不是回文的，则舍弃这种尝试
-            right = partition(right)
+        if left == left[::-1]:
+            right = parsestr(right)
             for i in range(len(right)):
-                tmp.append([left] + right[i])
-    return tmp
+                result.append([left] + right[i])
+    return result
 
 
-if __name__ == "__main__":
+if __name__=="__main__":
     input_str = "aabb"
-    print(partition(input_str))
+    print(parsestr(input_str))
