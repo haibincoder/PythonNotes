@@ -17,21 +17,26 @@ nums2 = [3, 4]
 
 
 class Solution:
-    @staticmethod
-    def findMedianSortedArrays(nums1, nums2):
+    def findMedianSortedArrays(self, nums1, nums2):
         nums1.extend(nums2)
         nums1.sort()
+
+        if len(nums1) == 1:
+            return nums1[0]
+
         temp = len(nums1) % 2
-        if temp == 1:
-            middle = nums1[int((len(nums1)+1)/2 - 1)]
+        if temp == 0:
+            mid_index = int(len(nums1) / 2) - 1
+            mid = (nums1[mid_index] + nums1[mid_index+1]) / 2
         else:
-            middle = nums1[int((len(nums1)) / 2)] + nums1[int((len(nums1)) / 2) - 1]
-            middle = middle/2
-        return middle
+            mid_index = int(len(nums1) / 2)
+            mid = nums1[mid_index]
+        return mid
 
 
 if __name__ == "__main__":
     num1 = [1, 3]
-    num2 = [2, 4]
-    result = Solution.findMedianSortedArrays(num1, num2)
-    print(f'{result}')
+    num2 = [2]
+    solution = Solution()
+    result = solution.findMedianSortedArrays(num1, num2)
+    print(result)
