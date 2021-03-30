@@ -14,7 +14,7 @@ class TreeNode:
 
 class Solution:
     def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
-        # 超时
+        # 超时，字节2021年3月30日
         # 保存节点的所有父节点
         temp = []
 
